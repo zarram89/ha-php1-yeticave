@@ -34,8 +34,15 @@
                             <span class="lot__cost"><?= format_price(htmlspecialchars($good['price'])); ?><b
                                         class="rub">р</b></span>
                         </div>
-                        <div class="lot__timer timer">
-                            12:23
+                        <?php
+                        [$hours, $minutes] = get_dt_range($good['expiration_date']);
+                        $hours = str_pad($hours, 2, "0", STR_PAD_LEFT);
+                        $minutes = str_pad($minutes, 2, "0", STR_PAD_LEFT);
+
+                        $timer_class = $hours < 1 ? 'timer timer--finishing' : 'timer';
+                        ?>
+                        <div class="<?= $timer_class; ?>">
+                            <?= "{$hours}:{$minutes}"; ?>
                         </div>
                     </div>
                 </div>
